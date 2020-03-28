@@ -6,10 +6,24 @@ public class KeyCylinder : MonoBehaviour
 {
 	public Transform top;
 	public Transform bottom;
-	public float distance { get; private set; }
+	public float length { get; private set; }
+	private Animator anim;
 
-	public void CalculateDistance()
+	private void Awake()
 	{
-		distance = Mathf.Abs(top.position.y - bottom.position.y);
+		anim = GetComponent<Animator>();
+	}
+
+	public void CalculateLength()
+	{
+		length = Mathf.Abs(top.position.y - bottom.position.y);
+	}
+	public void Shake()
+	{
+		anim.Play("Shake", 0, 0);
+	}
+	public void Open()
+	{
+		anim.Play("Open");
 	}
 }
