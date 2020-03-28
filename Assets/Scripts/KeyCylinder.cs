@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class KeyCylinder : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Transform top;
+	public Transform bottom;
+	public float distance { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void CalculateDistance()
+	{
+		distance = Mathf.Abs(top.position.y - bottom.position.y);
+	}
 }

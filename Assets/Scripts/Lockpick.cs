@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Lockpick : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private LockBody lockBody;
+	private int pinIndex;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void MoveToPinEnd()
+	{
+		transform.position = lockBody.pins[pinIndex].bottom.position;
+	}
 }

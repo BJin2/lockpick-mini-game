@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class LockBody : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public Transform top;
+	public Transform bottom;
+	public float distance { get; private set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public Pin[] pins;
+	public KeyCylinder keyCylinder;
+
+	private void Awake()
+	{
+		CalculateDistance();
+		keyCylinder.CalculateDistance();
+		foreach (Pin p in pins)
+		{
+			p.Setup();
+		}
+	}
+
+	private void CalculateDistance()
+	{
+		distance = Mathf.Abs(top.position.y - bottom.position.y);
+	}
 }
