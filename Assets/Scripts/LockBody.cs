@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class LockBody : MonoBehaviour
 {
+	public enum Difficulty
+	{
+		Hard,
+		Hell
+	}
 	public Transform top;
 	public Transform bottom;
 	public float length { get; private set; }
+
+	public Difficulty difficulty;
 
 	private bool open = false;
 
@@ -60,5 +67,14 @@ public class LockBody : MonoBehaviour
 	private void CalculateLength()
 	{
 		length = Mathf.Abs(top.position.y - bottom.position.y);
+	}
+
+	public void ReleaseAll()
+	{
+		foreach (Pin p in pins)
+		{
+			p.Release(true);
+		}
+		pinIndex = 0;
 	}
 }

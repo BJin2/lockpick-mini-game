@@ -41,7 +41,20 @@ public class Pin : MonoBehaviour
 	}
 	private void RandomScale()
 	{
-		float scale_max = owner.length / length;
+		float scale_max;
+		switch (owner.difficulty)
+		{
+			case LockBody.Difficulty.Hard:
+				scale_max = (owner.length / length) * 0.9f;
+				break;
+			case LockBody.Difficulty.Hell:
+				scale_max = (owner.length / length) * 0.7f;
+				break;
+			default:
+				scale_max = (owner.length / length);
+				break;
+		}
+		 
 		float scale_min = owner.keyCylinder.length / length;
 		float scale = Random.Range(scale_min, scale_max);
 		transform.localScale = new Vector3(1, scale, 1);
@@ -49,7 +62,7 @@ public class Pin : MonoBehaviour
 	}
 	private void RandomPosition()
 	{
-		float y_max = owner.bottom.position.y + length;
+		float y_max = (owner.bottom.position.y + length)*0.9f;
 		float y_min = owner.bottom.position.y;
 		float y = Random.Range(y_min, y_max);
 		transform.position = new Vector3(transform.position.x, y , transform.position.z);
@@ -93,7 +106,10 @@ public class Pin : MonoBehaviour
 		}
 		else
 		{
-			//TODO Release all depend on difficulty
+			if (owner.difficulty == LockBody.Difficulty.Hell)
+			{
+				owner.ReleaseAll();
+			}
 			Release(true);
 		}
 		return stuck;
@@ -111,8 +127,19 @@ public class Pin : MonoBehaviour
 		initialPosition = transform.position;
 		positionLimit = owner.top.position.y;
 		snapPosition = new Vector3(transform.position.x, owner.bottom.position.y + length, transform.position.z);
-		//TODO percentage based on difficulty
-		snapRange = (transform.localScale.y * length) * 0.1f;//10% of length 
+
+		switch (owner.difficulty)
+		{
+			case LockBody.Difficulty.Hard:
+				snapRange = (transform.localScale.y * length) * 0.3f;//30% of length 
+				break;
+			case LockBody.Difficulty.Hell:
+				snapRange = (transform.localScale.y * length) * 0.15f;//30% of length 
+				break;
+			default:
+				snapRange = (transform.localScale.y * length) * 0.5f;//30% of length 
+				break;
+		}
 
 		initialColor = transform.Find("Pin").GetComponent<Renderer>().material.color;
 	}
