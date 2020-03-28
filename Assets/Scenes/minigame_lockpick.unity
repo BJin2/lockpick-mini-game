@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   top: {fileID: 1506845227}
   bottom: {fileID: 1930588594}
+  difficulty: 1
   pins:
   - {fileID: 1210382584}
   - {fileID: 1635936663}
