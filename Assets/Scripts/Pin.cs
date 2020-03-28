@@ -5,9 +5,14 @@ using UnityEngine;
 public class Pin : MonoBehaviour
 {
 	private LockBody owner;
+
 	public float speed = 1;
 	public Transform top;
 	public Transform bottom;
+	public AudioClip click;
+	public AudioClip tick;
+
+	private AudioSource aud;
 
 	private Vector3 initialPosition;//position where it started
 	private Vector3 snapPosition;//goal position. will snap to this position when stuck
@@ -19,6 +24,11 @@ public class Pin : MonoBehaviour
 	public float length { get; private set; }
 
 	public bool stuck { get; private set; }
+
+	private void Awake()
+	{
+		aud = gameObject.GetComponent<AudioSource>();
+	}
 
 	private void Update()
 	{
@@ -92,7 +102,8 @@ public class Pin : MonoBehaviour
 		transform.position = initialPosition;
 		if (playSound)
 		{
-			//TODO tick or beep sound
+			aud.clip = tick;
+			aud.Play();
 		}
 	}
 	public bool Stuck()
@@ -101,7 +112,8 @@ public class Pin : MonoBehaviour
 		if (distance <= snapRange)
 		{
 			stuck = true;
-			//TODO click sound
+			aud.clip = click;
+			aud.Play();
 			transform.position = snapPosition;
 		}
 		else
