@@ -8,7 +8,8 @@ public class Lockpick : MonoBehaviour
 
 	private void Update()
 	{
-		MoveToPinEnd();
+		if(lockBody != null)
+			MoveToPinEnd();
 	}
 
 	private void MoveToPinEnd()

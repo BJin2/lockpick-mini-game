@@ -14,6 +14,7 @@ public class LockBody : MonoBehaviour
 	public float length { get; private set; }
 
 	public Difficulty difficulty;
+	public Player opener;
 
 	private bool open = false;
 
@@ -23,8 +24,9 @@ public class LockBody : MonoBehaviour
 
 	public int pinIndex { get; private set; }
 
-	private void Awake()
+	public void Init(Player player)
 	{
+		opener = player;
 		lockpick.SetLockBody(this);
 		CalculateLength();
 		keyCylinder.CalculateLength();

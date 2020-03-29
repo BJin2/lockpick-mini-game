@@ -32,7 +32,7 @@ public class Pin : MonoBehaviour
 
 	private void Update()
 	{
-		if (stuck)
+		if (stuck || owner == null)
 			return;
 
 		if(transform.position.y > initialPosition.y)
