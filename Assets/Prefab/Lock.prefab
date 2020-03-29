@@ -669,6 +669,7 @@ MonoBehaviour:
   top: {fileID: 8484575824374305321}
   bottom: {fileID: 8484575825074602416}
   difficulty: 0
+  timeLimit: 30.5
   opener: {fileID: 0}
   pins:
   - {fileID: 8484575824082028794}

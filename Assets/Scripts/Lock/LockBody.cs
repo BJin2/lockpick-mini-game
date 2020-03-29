@@ -14,6 +14,11 @@ public class LockBody : MonoBehaviour
 	public float length { get; private set; }
 
 	public Difficulty difficulty;
+	[Range(10.0f, 60.0f)]
+	public float timeLimit;
+	private float timer;
+
+	[HideInInspector]
 	public Player opener;
 
 	private bool open = false;
@@ -26,6 +31,7 @@ public class LockBody : MonoBehaviour
 
 	public void Init(Player player)
 	{
+		timer = timeLimit;
 		opener = player;
 		lockpick.SetLockBody(this);
 		CalculateLength();
@@ -41,6 +47,12 @@ public class LockBody : MonoBehaviour
 	{
 		if (open)
 			return;
+		timer -= Time.deltaTime;
+		if (timer <= 0)
+		{
+			Done();
+			return;
+		}
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -49,10 +61,12 @@ public class LockBody : MonoBehaviour
 				pinIndex++;
 				if (pinIndex == pins.Length)
 				{
+					LockUI.instance.ProgressText(1.0f);
 					pinIndex = 0;
 					keyCylinder.Open();
 					open = true;
-					//TODO show clear
+					Invoke("Done", 3);
+					return;
 				}
 			}
 			else
@@ -64,11 +78,20 @@ public class LockBody : MonoBehaviour
 		{
 			pins[pinIndex].Push();
 		}
+
+		LockUI.instance.TimerScale(timer / timeLimit);
+		LockUI.instance.ProgressText(((float)(pinIndex))/((float)pins.Length));
+		LockUI.instance.SuccessText(0.5f);
 	}
 
 	private void CalculateLength()
 	{
 		length = Mathf.Abs(top.position.y - bottom.position.y);
+	}
+	private void Done()
+	{
+		opener.LockpickDone();
+		Destroy(transform.parent.gameObject);
 	}
 
 	public void ReleaseAll()

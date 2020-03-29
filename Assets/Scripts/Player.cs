@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
 	{
 		opening = false;
 		target.done = true;
+		HUD.instance.HideKey();
 	}
 
 	private void Update()
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.E))
 			{
+				if (target.done)
+					return;
 				target.OpenLockScreen(this);
 				opening = true;
 			}

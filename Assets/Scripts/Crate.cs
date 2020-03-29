@@ -14,7 +14,7 @@ public class Crate : MonoBehaviour
 	{
 		if (done)
 			return;
-		GameObject temp = Instantiate(lockObject, new Vector3(-99, -99, -99), lockObject.transform.rotation);
+		GameObject temp = Instantiate(lockObject);
 		temp.transform.Find("Body").GetComponent<LockBody>().difficulty = difficulty;
 		temp.transform.Find("Body").GetComponent<LockBody>().Init(player);
 	}
@@ -33,8 +33,6 @@ public class Crate : MonoBehaviour
 
 	private void OnTriggerExit(Collider col)
 	{
-		if (done)
-			return;
 		Player p = col.GetComponent<Player>();
 		if (p != null)
 		{

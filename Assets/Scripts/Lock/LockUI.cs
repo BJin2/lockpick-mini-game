@@ -21,4 +21,17 @@ public class LockUI : MonoBehaviour
 			Destroy(this);
 		}
 	}
+
+	public void TimerScale(float percentage)
+	{
+		timer.localScale = new Vector3(percentage, 1, 1);
+	}
+	public void ProgressText(float prog)
+	{
+		progress.text = (prog * 100).ToString() + "%";
+	}
+	public void SuccessText(float succ)
+	{
+		success.text = (succ * 100).ToString() + "%";
+	}
 }
